@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <form method="post" >
+    {% csrf_token %}
+    <div class="text-center mb-4">
+          <h1 >Восстановить</h1>
+          <p>Восстановление пароля</p>
+          <p style="color: green">{{form}}</p>
+    </div>
+    <div class="center">
+          <button class="btn btn-secondary btn-lg btn-block" type="submit">Отправить</button>
+    </div>
+    </form>
+{% endblock %}

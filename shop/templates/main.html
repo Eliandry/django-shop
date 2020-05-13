@@ -1,0 +1,134 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{%block auth%}
+  <script src="{% static 'js/login.js' %}"></script>
+  <script src="{% static 'js/registr.js' %}"></script>
+  {% if username %}
+    <a class="btn btn-outline-light" href="/auth/logout/">Выйти</a>
+  {% else %}
+    <div class="overlay" style="display: none;">
+    <div class="login-wrapper">
+        <div class="login-content" id="loginTarget">
+            <a class="close">x</a>
+            <h3>Регистрация</h3>
+                <form action="/auth/register/" method="post">
+                  {% csrf_token %}
+                <div>
+                {% for field in form %}
+                    <label for="">{{field.label}}</label>
+                    <div class="group">{{field}}</div>
+                        {%if field.errors%}
+                            <p>{{field.errors}}</p>
+                        {%endif%}
+                {%endfor%}
+            <div class="p-4">
+            <button type="submit" class="btn btn-outline-dark">Регистрация</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+    <button class="overlayLink btn btn-outline-light">Регистрация</button>
+    <button class="message_head btn btn-outline-light">Войти</button>
+    <div class="message_body" style="display: none;">
+     <form action="/auth/login/" method="post" >{% csrf_token %}
+       <input type="text" id="username1" name="username" class="form-control" placeholder="Your name">
+        <input type="password" id="password1" name="password1" class="form-control" placeholder="Password" required="" autofocus="">
+       <button class="btn btn-outline-light btn-sm" type="submit">Войти</button>
+     </form>
+    </div>
+
+  {% endif %}
+{%endblock%}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar shadow-sm">
+      <div class="sidebar-sticky leftmenu">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Каталог</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          {%for category in cat%}
+          <li class="nav-item mb-3">
+            <a class="nav-link" href="#" style="color: black">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              {{category.name}}
+            </a>
+          </li>
+          {%endfor%}
+        </ul>
+      </div>
+    </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 font-weight-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Лучший интернет магазин</font></font></h1>
+          <p class="lead font-weight-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">И еще более остроумный подзаголовок для загрузки. </font><font style="vertical-align: inherit;">Лучшее дизайн решение. Прям как у Apple</font></font></p>
+        </div>
+        <div class="product-device shadow-sm d-none d-md-block"> </div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+      </div>
+      <h3 class="p-2">Хиты продаж</h3><hr>
+      <div class="row p-4">
+         {% for product in hot_price%}
+          <div class="col-md-3">
+            <div>
+              {%if product.category.slug == 'smartfony'%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="130" height="170">
+              {%else%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
+              {%endif%}
+          </div>
+            <h5 class="mb-0">{{product.name}}</h5>
+              <div><p>✮✮✮✮☆</p></div>
+            <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
+            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+          </div>
+        {%endfor%}
+      </div>
+      <h3 >Успейте купить</h3><hr>
+      <div class="row p-4">
+         {% for product in little_price%}
+          <div class="col-md-3">
+            <div>
+              {%if product.category.slug == 'smartfony'%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="130" height="170">
+              {%else%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
+              {%endif%}
+          </div>
+            <h5 class="mb-0">{{product.name}}</h5>
+              <div><p>✮✮✮✮☆</p></div>
+            <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
+            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+          </div>
+        {%endfor%}
+      </div>
+      <h3 class="p-2">Лучшие новинки</h3><hr>
+      <div class="row p-4">
+         {% for product in new_price%}
+          <div class="col-md-3">
+            <div>
+              {%if product.category.slug == 'smartfony'%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="130" height="170">
+              {%else%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
+              {%endif%}
+          </div>
+            <h5 class="mb-0">{{product.name}}</h5>
+              <div><p>✮✮✮✮☆</p></div>
+            <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
+            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+          </div>
+        {%endfor%}
+      </div>
+    </main>
+  </div>
+</div>
+{%endblock%}
