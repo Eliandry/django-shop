@@ -3,15 +3,9 @@ from django.views import generic
 from django.contrib import auth
 from .forms import UserCreateForm
 from .models import Category, Product
+from cart.forms import CartAddProductForm
 
 
-def product_list(request):
-    categories = Category.objects.all()
-    products = Product.objects.filter(available=True)
-    return render(request,
-                  'all_product.html',
-                  {'categories': categories,
-                   'products': products})
 
 
 def main(request):
@@ -31,6 +25,10 @@ def main(request):
                                          'form':user_form})
 
 
+
 def product_details(request, id):
-    product = Product.objects.get(id=id)
-    return render(request, 'detail.html', {'product': product})
+    product = get_object_or_404(Product,
+                                    id=id,)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'detail.html', {'product': product,
+                                                            'cart_product_form': cart_product_form})

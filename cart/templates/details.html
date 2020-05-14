@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block content %}
+<main role="main" class="p-5">
+<h1>Ваша корзина</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Изображение</th>
+            <th scope="col">Название</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена товара</th>
+            <th scope="col">Итоговая цена</th>
+            <th scope="col">Удалить товар</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="/product-detail/{{product.id}}">
+                            {%if product.category.slug == 'smartfony'%}
+                            <img width="90" height="130"  src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static 'img/no_image.png' %}
+                                {% endif %}">
+                            {%else%}
+                            <img width="130" height="90"  src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static 'img/no_image.png' %}
+                                {% endif %}">
+                            {%endif%}
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="/product-detail/{{product.id}}" style="color:black">
+                        {{ product.name }}
+                        </a>
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td >{{ item.price }} руб.</td>
+                    <td >{{ item.total_price }} руб.</td>
+                    <td><a href="{% url 'cart:cart_remove' product.id%}" style="color : black"><svg class="bi bi-trash" width="20px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/>
+</svg></a></td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="p-3">
+        <hr align="left" width="15%" color="#dddddd">
+        <p>Итого: <h5><strong>{{ cart.get_total_price }} руб.</strong></h5></p>
+    </div>
+</main>
+{%endblock%}

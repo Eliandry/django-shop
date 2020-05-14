@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block content %}
 <div class="container">
-    <div >
+    <div class="p-5">
         <h2 class="blog-post-title">{{product.name}}</h2>
         <p class="blog-post-meta">{{product.price}}</p>
         <h4>{{product.category.name}}</h4>
         <hr>
-        <img class="bd-placeholder-img" width="600" height="400" src="{% if product.image %} /media/{{ product.image }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+
         <hr>
         <pre><font size="4">{{product.description}}</font></pre>
+
     </div>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post">{% csrf_token %}
+    {{ cart_product_form }}
+    <input type="submit" value="Добавить в корзину">
+</form>
 </div>
-</body>
-</html>
+
+{%endblock%}
