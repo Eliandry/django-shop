@@ -7,6 +7,7 @@ from django.urls import path,include
 from django.contrib.auth import views as authViews
 urlpatterns = [
     path('cart/',include('cart.urls',namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
     path('admin/', admin.site.urls),
     path('',include('shop.urls')),
     path('auth/',include('users.urls')),

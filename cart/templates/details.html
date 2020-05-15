@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load staticfiles %}
+{% block title %}Корзина{% endblock %}
 {% block content %}
 <main role="main" class="p-5">
 <h1>Ваша корзина</h1>
@@ -59,6 +60,9 @@
     <div class="p-3">
         <hr align="left" width="15%" color="#dddddd">
         <p>Итого: <h5><strong>{{ cart.get_total_price }} руб.</strong></h5></p>
+        <a href="{% url 'orders:order_create' %}" class="button">
+            Оформить
+        </a>
     </div>
 </main>
 {%endblock%}
