@@ -6,13 +6,16 @@
             <form action="" method="post">
             {% csrf_token %}
                 <div>
-                {% for field in form %}
-                    <label for="">{{field.label}}</label>
-                    <div class="group">{{field}}</div>
-                        {%if field.errors%}
-                            <p>{{field.errors}}</p>
-                        {%endif%}
-                {%endfor%}
+                    <label for="" >Имя</label>
+                    <div class="group">{{form.first_name}}</div>
+                    <label for="">Фамилия</label>
+                    <div class="group">{{form.last_name}}</div>
+                    <label for="">Email</label>
+                    <div class="group">{{form.username}}</div>
+                    <label for="">Пароль</label>
+                    <div class="group">{{form.password1}}</div>
+                    <label for="">Подтвердите пароль</label>
+                    <div class="group">{{form.password2}}</div>
             <div class="p-4">
             <button type="submit" class="btn btn-outline-dark">Регистрация</button>
                     </div>

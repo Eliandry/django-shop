@@ -13,8 +13,8 @@
 
     </div>
     <form action="{% url 'cart:cart_add' product.id %}" method="post">{% csrf_token %}
-    {{ cart_product_form }}
-    <input type="submit" value="Добавить в корзину">
+    {{ cart_product_form.quantity }}
+    <input class="btn btn-dark" type="submit" value="Добавить в корзину">
 </form>
 </div>
 

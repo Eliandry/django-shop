@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'shop',
     'users',
     'cart',
+    'orders',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
