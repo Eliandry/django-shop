@@ -8,10 +8,10 @@ from django.contrib.auth import views as authViews
 urlpatterns = [
     path('cart/',include('cart.urls',namespace='cart')),
     path('orders/', include('orders.urls', namespace='orders')),
-    path('admin/', admin.site.urls),
+    path('coupons/', include('coupons.urls', namespace='coupons')),
     path('',include('shop.urls')),
     path('auth/',include('users.urls')),
-
+    path('admin/', admin.site.urls),
 
 
     path('pass-reset/',authViews.PasswordResetView.as_view(template_name='pass_reset.html'),

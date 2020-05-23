@@ -10,10 +10,13 @@ def order_create(request):
     if request.method == 'POST':
         form=OrderCreateForm(request.POST)
         if form.is_valid():
-            order=form.save()
+            order=form.save(commit=False)
             order.first_name=auth.get_user(request).first_name
             order.last_name = auth.get_user(request).last_name
             order.email = auth.get_user(request).username
+            if cart.coupon:
+                order.coupon = cart.coupon
+                order.discount = cart.coupon.discount
             order.save()
             for item in cart:
                 OrderItem.objects.create(order=order,

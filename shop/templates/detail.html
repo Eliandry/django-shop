@@ -5,7 +5,7 @@
 <div class="row p-5">
         <div class="col-md-4">
             {%if product.category.slug == 'smartfony'%}
-                <img src="{{ product.image.url }}" width="250" height="500">
+                <img src="{{ product.image.url }}" height="500">
               {%else%}
                 <img class="css-adaptive" src="{{ product.image.url }}" height="400">
               {%endif%}

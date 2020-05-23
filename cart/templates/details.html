@@ -56,10 +56,22 @@
         {% endfor %}
         </tbody>
     </table>
-
     <div class="p-3">
         <hr align="left" width="15%" color="#dddddd">
-        <p>Итого: <h5><strong>{{ cart.get_total_price }} руб.</strong></h5></p>
+        {% if not cart.coupon %}
+    <form action="{% url 'coupons:apply' %}" method="post">
+        <div style="width: 10%">
+    Промокод:{{ coupon_apply_form.code }}
+            </div>
+    <input type="submit" class="btn btn-secondary btn-sm" value="Активировать">
+    {% csrf_token %}
+    </form>
+    {%endif%}
+        {% if cart.coupon %}
+        <p>Цена без скидки: <strong>{{ cart.get_total_price }}руб.</strong></p>
+        <p>"{{ cart.coupon.code }}" купон ({{ cart.coupon.discount }}% off):  <strong>- {{ cart.get_discount|floatformat:"2" }}руб.</strong></p>
+        {%endif%}
+        <p>Итого: <h5><strong>{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</strong></h5></p>
         <a href="{% url 'orders:order_create' %}" class="button btn btn-dark">
             Оформить
         </a>

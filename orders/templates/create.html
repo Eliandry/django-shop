@@ -22,8 +22,14 @@
                     <span>{{ item.total_price }} руб.</span>
                 </li>
             {% endfor %}
+            {% if cart.coupon %}
+            <li>
+                "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+                <span>- {{ cart.get_discount|floatformat:"2" }}руб.</span>
+            </li>
+    {% endif %}
         </ul>
-                <p>Итого: {{ cart.get_total_price }}</p>
+                <p>Итого: {{ cart.get_total_price_after_discount|floatformat:"2" }}руб.</p>
     </div>
     </div>
 {% endblock %}
