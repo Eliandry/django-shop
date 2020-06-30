@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib import auth
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
@@ -35,4 +36,5 @@ def cart_detail(request):
     return render(request,
                   'details.html',
                   {'cart': cart,
-                   'coupon_apply_form': coupon_apply_form})
+                   'coupon_apply_form': coupon_apply_form,
+                   'username':auth.get_user(request).username})

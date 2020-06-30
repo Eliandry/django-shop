@@ -72,7 +72,7 @@
         <p>"{{ cart.coupon.code }}" купон ({{ cart.coupon.discount }}% off):  <strong>- {{ cart.get_discount|floatformat:"2" }}руб.</strong></p>
         {%endif%}
         <p>Итого: <h5><strong>{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</strong></h5></p>
-        <a href="{% url 'orders:order_create' %}" class="button btn btn-dark">
+        <a href="{%if username%}{% url 'orders:order_create' %}{%else%}/auth/login/{%endif%}" class="button btn btn-dark">
             Оформить
         </a>
     </div>

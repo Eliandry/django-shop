@@ -25,7 +25,7 @@ class Order(models.Model):
                                related_name='orders',
                                null=True,
                                blank=True,
-                               on_delete=False)
+                               on_delete=models.CASCADE)
     discount = models.IntegerField(default=0,
                                    validators=[MinValueValidator(0),
                                                MaxValueValidator(100)])
@@ -44,8 +44,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=False)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=False)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 

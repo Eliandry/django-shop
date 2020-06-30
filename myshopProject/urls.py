@@ -22,4 +22,5 @@ urlpatterns = [
          name='password-reset_complete'),
     path('password-reset/done/',authViews.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
          name='password_reset_done'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + staticfiles_urlpatterns()

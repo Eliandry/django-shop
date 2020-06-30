@@ -2,8 +2,10 @@
 {% load staticfiles %}
 {% block title %}Главная{% endblock %}
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {%block auth%}
+  {%block style%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {%endblock%}
   <script src="{% static 'js/login.js' %}"></script>
   <script src="{% static 'js/registr.js' %}"></script>
   {% if username %}
@@ -62,35 +64,15 @@
       </div>
 
       <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-          <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
-            <div class="my-3 py-3">
-              <h2 class="display-5">Ноутбуки</h2>
-            </div>
-            <div class=" shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{%static 'img/3.png'%}"></div>
-          </div>
-
-          <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
-            <div class="my-3 p-3">
-              <h2 class="display-5">Мониторы</h2>
-            </div>
-            <div class="shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{%static 'img/7.png'%}"></div>
-          </div>
-
-          <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
-            <div class="my-3 py-3">
-              <h2 class="display-5">Смартфоны</h2>
-            </div>
-            <div class="shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{%static 'img/5.png'%}"></div>
-          </div>
-
-          <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
-            <div class="my-3 py-3">
-              <h2 class="display-5">Компьютеры</h2>
-            </div>
-            <div class="shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{%static 'img/2.png'%}"></div>
-          </div>
-
-    </div>
+          {%for category in cat%}
+              <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
+                <div class="my-3 py-3">
+                    <h2 class="display-5">{{category.name}}</h2>
+                </div>
+                <div class=" shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{category.img.url}}"></div>
+              </div>
+          {%endfor%}
+      </div>
       <h3 class="p-2">Хиты продаж</h3><hr>
       <div class="row p-4">
          {% for product in hot_price%}
@@ -105,7 +87,7 @@
             <h5 class="mb-0">{{product.name}}</h5>
               <div><p>✮✮✮✮☆</p></div>
             <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
-            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+            <a href="{{product.get_absolute_url}}" class="stretched-link"></a>
           </div>
         {%endfor%}
       </div>
@@ -123,7 +105,7 @@
             <h5 class="mb-0">{{product.name}}</h5>
               <div><p>✮✮✮✮☆</p></div>
             <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
-            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+            <a href="{{product.get_absolute_url}}" class="stretched-link"></a>
           </div>
         {%endfor%}
       </div>
@@ -133,7 +115,7 @@
           <div class="col-md-3">
             <div>
               {%if product.category.slug == 'smartfony'%}
-                <img src="/media/{{ product.image }}"  height="170">
+                <img src="{{ product.image.url }}"  height="170">
               {%else%}
                 <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
               {%endif%}
@@ -141,7 +123,7 @@
             <h5 class="mb-0">{{product.name}}</h5>
               <div><p>✮✮✮✮☆</p></div>
             <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
-            <a href="/product-detail/{{product.id}}" class="stretched-link"></a>
+            <a href="{{product.get_absolute_url}}" class="stretched-link"></a>
           </div>
         {%endfor%}
       </div>
