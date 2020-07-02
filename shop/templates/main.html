@@ -43,7 +43,7 @@
     <button class="message_head btn btn-outline-light">Войти</button>
     <div class="message_body" style="display: none;">
      <form action="/auth/login/" method="post" >{% csrf_token %}
-       <input type="text" id="username1" name="username" class="form-control" placeholder="Your name">
+       <input type="text" id="username1" name="username" class="form-control" placeholder="Your email">
         <input type="password" id="password1" name="password" class="form-control" placeholder="Password" required="" autofocus="">
        <button class="btn btn-outline-light btn-sm" type="submit">Войти</button>
      </form>
@@ -66,10 +66,12 @@
       <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
           {%for category in cat%}
               <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
-                <div class="my-3 py-3">
-                    <h2 class="display-5">{{category.name}}</h2>
-                </div>
-                <div class=" shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{category.img.url}}"></div>
+                <a href="{{category.get_absolute_url}}" style="color:black">
+                    <div class="my-3 py-3">
+                        <h2 class="display-5">{{category.name}}</h2>
+                    </div>
+                    <div class=" shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{category.img.url}}"></div>
+                </a>
               </div>
           {%endfor%}
       </div>
@@ -79,9 +81,9 @@
           <div class="col-md-3">
             <div>
               {%if product.category.slug == 'smartfony'%}
-                <img class="" src="/media/{{ product.image }}"  height="170">
+                <img src="{{ product.image.url }}"  height="170">
               {%else%}
-                <img  src="/media/{{ product.image }}" width="170" height="130">
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
               {%endif%}
           </div>
             <h5 class="mb-0">{{product.name}}</h5>
@@ -97,9 +99,9 @@
           <div class="col-md-3">
             <div>
               {%if product.category.slug == 'smartfony'%}
-                <img src="/media/{{ product.image }}"  height="170">
+                <img src="{{ product.image.url }}"  height="170">
               {%else%}
-                <img  src="/media/{{ product.image }}" width="170" height="130">
+                <img class="css-adaptive" src="{{ product.image.url }}" width="170" height="130">
               {%endif%}
           </div>
             <h5 class="mb-0">{{product.name}}</h5>

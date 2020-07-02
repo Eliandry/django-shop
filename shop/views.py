@@ -45,3 +45,8 @@ class AddReview(View):
         review = Reviews(name=name, lastname=lastname, text=text, product=product, parent_id=parent)
         review.save()
         return HttpResponseRedirect(product.get_absolute_url())
+def filter(request,slug):
+    products=Product.objects.filter(category__slug=slug)
+    category=Category.objects.get(slug=slug)
+    return render(request,'filter.html',{'products':products,
+                                         'category':category})

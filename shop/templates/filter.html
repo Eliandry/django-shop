@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block title %}{% endblock %}
+{%block content%}
+<div class="p-5">
+    <h2>{{category.name}}</h2>
+</div>
+      <div class="row p-4">
+         {% for product in products%}
+          <div class="col-md-3">
+            <div>
+              {%if product.category.slug == 'smartfony'%}
+                <img src="{{ product.image.url }}"  height="170">
+              {%else%}
+                <img class="css-adaptive" src="/media/{{ product.image }}" width="170" height="130">
+              {%endif%}
+          </div>
+            <h5 class="mb-0">{{product.name}}</h5>
+              <div><p>✮✮✮✮☆</p></div>
+            <span class="mb-auto"><font  face="Arial">{{product.price}} руб.</font></span>
+            <a href="{{product.get_absolute_url}}" class="stretched-link"></a>
+          </div>
+        {%endfor%}
+      </div>
+{%endblock%}
