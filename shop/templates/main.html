@@ -1,11 +1,8 @@
 {% extends "index.html" %}
-{% load staticfiles %}
 {% block title %}Главная{% endblock %}
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 {%block auth%}
-  {%block style%}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  {%endblock%}
+{% load static %}
   <script src="{% static 'js/login.js' %}"></script>
   <script src="{% static 'js/registr.js' %}"></script>
   {% if username %}
@@ -53,29 +50,29 @@
 {%endblock%}
 {% block content %}
 
-  <div>
+  <div class="">
       <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
           <h1 class="display-4 font-weight-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Лучший интернет магазин</font></font></h1>
           <p class="lead font-weight-normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">И еще более остроумный подзаголовок для загрузки. </font><font style="vertical-align: inherit;">Лучшее дизайн решение. Прям как у Apple</font></font></p>
         </div>
-        <div class="product-device shadow-sm d-none d-md-block"> </div>
+        <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
       </div>
 
-      <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+      <div class="d-md-flex flex-md-equal w-100  row">
           {%for category in cat%}
-              <div class="bg-light mr-md-1 pt-1 px-1 pt-md-3 px-md-2 text-center  overflow-hidden" style="width: 200px; height: 302px;">
+              <div class=" bg-light  text-center  col-12 col-sm-6 col-md-6 col-lg-6" style=" height: 302px;">
                 <a href="{{category.get_absolute_url}}" style="color:black">
-                    <div class="my-3 py-3">
+                    <div class="my-3 py-3 ">
                         <h2 class="display-5">{{category.name}}</h2>
                     </div>
-                    <div class=" shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{category.img.url}}"></div>
+                    <div class=" mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{category.img.url}}"></div>
                 </a>
               </div>
           {%endfor%}
       </div>
-      <h3 class="p-2">Хиты продаж</h3><hr>
+      <h3 class="p-2"><strong>Хиты продаж</strong></h3><hr>
       <div class="row p-4">
          {% for product in hot_price%}
           <div class="col-md-3">
@@ -93,7 +90,7 @@
           </div>
         {%endfor%}
       </div>
-      <h3 >Успейте купить</h3><hr>
+      <h3 class="p-2"><strong>Успейте купить</strong></h3><hr>
       <div class="row p-4">
          {% for product in little_price%}
           <div class="col-md-3">
@@ -111,7 +108,7 @@
           </div>
         {%endfor%}
       </div>
-      <h3 class="p-2">Лучшие новинки</h3><hr>
+      <h3 class="p-2"><strong>Лучшие новинки</strong></h3><hr>
       <div class="row p-4">
          {% for product in new_price%}
           <div class="col-md-3">
