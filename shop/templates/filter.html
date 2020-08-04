@@ -7,7 +7,7 @@
     <h2>{{category.name}}</h2>
 </div>
       <div class="row p-4">
-         {% for product in products%}
+         {% for product in product_list%}
           <div class="col-md-3">
             <div>
               {%if product.category.slug == 'smartfony'%}

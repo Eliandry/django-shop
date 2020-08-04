@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'ckeditor_uploader',
+    'import_export',
     'shop',
     'users',
     'cart',
@@ -133,6 +134,7 @@ EMAIL_HOST_USER='eliotlion73@gmail.com'
 EMAIL_HOST_PASSWORD='ddfgg5454'
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]

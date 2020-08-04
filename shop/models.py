@@ -22,7 +22,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True)
+    slug = models.CharField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
     description = models.TextField(blank=True)
     characteristics = models.TextField(max_length=200, default='')
@@ -37,7 +37,7 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("detail", kwargs={"slug": self.slug})
+        return reverse("detail", kwargs={"id": self.id})
 
     def get_review(self):
         return self.reviews_set.filter(parent__isnull=True)

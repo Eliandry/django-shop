@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from django.contrib import auth
+from django.views.generic import ListView
+
 from .forms import UserCreateForm
 from .models import Category, Product, Reviews
 from cart.forms import CartAddProductForm
@@ -24,13 +26,21 @@ def main(request):
                                          'form': user_form})
 
 
-def product_details(request, slug):
+def product_details(request, id):
     product = get_object_or_404(Product,
-                                slug=slug, )
+                                id=id, )
     cart_product_form = CartAddProductForm()
     return render(request, 'detail.html', {'product': product,
                                            'cart_product_form': cart_product_form,
                                            'username': auth.get_user(request).username, })
+
+
+class SearchView(ListView):
+    template_name = 'filter.html'
+
+    def get_queryset(self):
+        name = self.request.GET.get('q')
+        return Product.objects.filter(name=name.capitalize())
 
 
 class AddReview(View):
@@ -45,8 +55,10 @@ class AddReview(View):
         review = Reviews(name=name, lastname=lastname, text=text, product=product, parent_id=parent)
         review.save()
         return HttpResponseRedirect(product.get_absolute_url())
-def filter(request,slug):
-    products=Product.objects.filter(category__slug=slug)
-    category=Category.objects.get(slug=slug)
-    return render(request,'filter.html',{'products':products,
-                                         'category':category})
+
+
+def filter(request, slug):
+    products = Product.objects.filter(category__slug=slug)
+    category = Category.objects.get(slug=slug)
+    return render(request, 'filter.html', {'product_list': products,
+                                           'category': category})
